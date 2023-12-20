@@ -13,10 +13,9 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit=counter_cubit.get(context);
-    return BlocProvider(create:(BuildContext context)=>counter_cubit(),
-
-      child:BlocConsumer(listener: (context,states){}, builder: (BuildContext context, state) {
+    //var cubit=counter_cubit.get(context);
+    return BlocProvider(create:(context)=>counter_cubit(),
+      child:BlocConsumer<counter_cubit,counterstate>(listener: (context,states){}, builder: (BuildContext context, state) {
         return Scaffold(
         body: Center(
         child: Row(
@@ -26,20 +25,22 @@ class MyHomePage extends StatelessWidget {
 
         ElevatedButton  (
         onPressed: () {
-        cubit.increment();
+          BlocProvider.of<counter_cubit>(context).decrement();
+    //    cubit.increment();
         },
         child: Text('+'),
         ),
         SizedBox(
         width: 10,
         ),
-        Text('${cubit..number}'),
+        Text('${BlocProvider.of<counter_cubit>(context).number}'),
         SizedBox(
         width: 10,
         ),
         ElevatedButton  (
         onPressed: () {
-        cubit.decrement();
+          BlocProvider.of<counter_cubit>(context).increment();
+       // cubit.decrement();
         // Code to be executed when the button is pressed
         // print('Button pressed!');
         },
